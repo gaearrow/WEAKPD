@@ -13,7 +13,7 @@ query = "product:\"Microsoft SQL Server\""
 # 处理输入
 if len(sys.argv) != 3:
     print 
-    print 'Usage: MSSQLShodanAtk.py <page start:1,2...> <page end:1,2...>'
+    print 'Usage: MSSQL.py <page start:1,2...> <page end:1,2...>'
     sys.exit(1)
 pagestart = int(sys.argv[1])
 pageend = int(sys.argv[2])
