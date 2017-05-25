@@ -1,5 +1,4 @@
-# ShodanAtk
-## mssqlatk
+# mssqlatk
 
 ### Setup your own api_key
 00mssqltopcountry.py(optional)&01mssqlcollector.py
