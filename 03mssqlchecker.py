@@ -7,6 +7,7 @@
 
 import pymssql
 import sys
+from time import strftime,gmtime
 
 # process input
 if len(sys.argv) == 1:
@@ -14,7 +15,8 @@ if len(sys.argv) == 1:
    sys.exit(1)
 srcfile = sys.argv[1].strip()
 fsrc = open(srcfile,'r')
-fsql = open('sqlchecklist.txt','w')
+outputfile = 'sqlcheck'+strftime("-%Y%m%d%H%M")+'.txt'
+fsql = open(outputfile,'w')
 
 # for stats.
 nsqlser = 0
