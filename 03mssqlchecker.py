@@ -20,17 +20,19 @@ fsql = open('sqlchecklist.txt','w')
 nsqlser = 0
 ncmdenable = 0
 ncmddisable = 0
+nsysadmin = 0
+nnotsysadmin = 0
 
 # check one by one
 for eachline in fsrc:
 
     # check input format.
     if eachline.count(';') != 3:
-       print >>fsql,eachline
+       print >>fsql,eachline.strip()
        continue
     nsqlser = nsqlser + 1
     strlist = eachline.strip().split(';')
-    print >>fsql,strlist[0]+';',
+    print >>fsql,eachline.strip()+';',
     print 'Checking '+strlist[0]
 
     # connect sql server
@@ -40,8 +42,22 @@ for eachline in fsrc:
        print >>fsql,'online;',
     except Exception as e:
         #print 'Error: %s' % e
-        print >>fsql,'offline;',
+        print >>fsql,'offline;;;;;'
         continue
+
+    # get user role
+    try:
+        cursor.execute("select is_srvrolemember('sysadmin')")
+        issysadmin = cursor.fetchall()
+        if issysadmin[0][0] == 1:
+            print >>fsql,'Sysadmin'+';',
+            nsysadmin = nsysadmin + 1
+        else:
+            print >>fsql,'NotSysadmin'+';',
+            nnotsysadmin = nnotsysadmin + 1
+    except Exception as e:
+        #print 'Error: %s' % e
+        print >>fsql,'Unknown'+';',
 
     # get xp_cmdshell status
     try:
@@ -56,7 +72,6 @@ for eachline in fsrc:
     except Exception as e:
         #print 'Error: %s' % e
         print >>fsql,'Disabled'+';',
-        ncmddisable = ncmddisable + 1
 
     # get sql version
     try:
@@ -74,9 +89,19 @@ for eachline in fsrc:
        
     conn.close()
 
+print >>fsql,'==================================='
+print >>fsql,'MSSQL Check Information @Gaearrow'
+print >>fsql,'Total Target : ', nsqlser
+print >>fsql,'isSysadmin    Disabled : ', nsysadmin
+print >>fsql,'isNotSysadmin Disabled : ', nnotsysadmin
+print >>fsql,'Cmdshell Enabled  : ', ncmdenable
+print >>fsql,'Cmdshell Disabled : ', ncmddisable
+print >>fsql,'==================================='
 print '==================================='
 print 'MSSQL Check Information @Gaearrow'
 print 'Total Target : ', nsqlser
+print 'isSysadmin    Disabled : ', nsysadmin
+print 'isNotSysadmin Disabled : ', nnotsysadmin
 print 'Cmdshell Enabled  : ', ncmdenable
 print 'Cmdshell Disabled : ', ncmddisable
 print '==================================='
