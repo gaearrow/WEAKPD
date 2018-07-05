@@ -16,7 +16,7 @@ try:
     for eachline in fsrc:
         if eachline.find('[mssql]') > -1:
             strlist = eachline.split()
-            print strlist[2]+';'+strlist[0].strip('[mssql]')+';'+strlist[4]+';'+strlist[6]
+            print strlist[2]+','+strlist[0].strip('[mssql]')+','+strlist[4]+','+strlist[6]
 except Exception as e:
     print 'Error: %s' % e
     sys.exit(1)
