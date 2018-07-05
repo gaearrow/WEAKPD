@@ -2,6 +2,7 @@
 # Python v2.7.10
 # pymssql-2.1.1.win32-py2.7.exe (md5)
 # https://pypi.python.org/pypi/pymssql/2.1.1#downloads
+# pip install pymssql==2.1.1
 # mssqlchecker.py
 # Written by Gaearrow
 

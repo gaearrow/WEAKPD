@@ -3,6 +3,10 @@
 ### Setup your own api_key
 00mssqltopcountry.py(optional)&01mssqlcollector.py
 
+
+### Install pymssql
+pip install pymssql==2.1.1
+
 ### Top 50 country
 c:\mssql\> 00mssqltopcountry.py \> mssqltop50.txt
 
