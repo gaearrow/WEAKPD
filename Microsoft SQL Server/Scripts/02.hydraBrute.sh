@@ -1,0 +1,1 @@
+hydra -L ./dicts/mssqluser.dic -P ./dicts/mssqlpass.dic -o crack.log -t 50 -M ips.txt mssql
